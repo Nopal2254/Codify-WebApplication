@@ -241,6 +241,8 @@ Route::middleware(['auth', 'teacher'])->prefix('teacher')->name('teacher.')->gro
     Route::get('/quizzes/{quiz}/results', [\App\Http\Controllers\Teacher\QuizController::class, 'results'])->name('quizzes.results');
     Route::get('/quizzes/{quiz}/questions', [\App\Http\Controllers\Teacher\QuizController::class, 'questions'])->name('quizzes.questions');
     Route::post('/quizzes/{quiz}/questions', [\App\Http\Controllers\Teacher\QuizController::class, 'storeQuestion'])->name('quizzes.questions.store');
+    Route::put('/quizzes/{quiz}/questions/{question}', [\App\Http\Controllers\Teacher\QuizController::class, 'updateQuestion'])->name('quizzes.questions.update');
+    Route::delete('/quizzes/{quiz}/questions/{question}', [\App\Http\Controllers\Teacher\QuizController::class, 'destroyQuestion'])->name('quizzes.questions.destroy');
 
     // Coding Problems
     Route::resource('coding', \App\Http\Controllers\Teacher\CodingController::class);

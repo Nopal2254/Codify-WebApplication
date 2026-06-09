@@ -151,6 +151,61 @@ class QuizController extends Controller
         return redirect()->route('teacher.quizzes.questions', $quiz->id)->with('success', __('Question added successfully!'));
     }
 
+    public function updateQuestion(Request $request, Quiz $quiz, $questionId)
+    {
+        $courseIds = $this->getTeacherCourseIds();
+        if (!in_array($quiz->course_id, $courseIds)) {
+            abort(403);
+        }
+
+        $question = QuizQuestion::where('quiz_id', $quiz->id)->findOrFail($questionId);
+
+        $request->validate([
+            'question' => 'required|string',
+            'points' => 'required|integer|min:1',
+            'explanation' => 'nullable|string',
+            'options' => 'required|array|min:2',
+            'options.*' => 'nullable|string',
+            'correct_option' => 'required|integer',
+        ]);
+
+        $question->update([
+            'question' => $request->question,
+            'points' => $request->points,
+            'explanation' => $request->explanation,
+        ]);
+
+        // Delete old options and insert new ones
+        $question->options()->delete();
+
+        foreach ($request->options as $index => $optText) {
+            if ($optText !== null && trim($optText) !== '') {
+                QuizOption::create([
+                    'question_id' => $question->id,
+                    'option_text' => $optText,
+                    'is_correct' => $request->correct_option == $index,
+                    'sort_order' => $index + 1,
+                ]);
+            }
+        }
+
+        return redirect()->route('teacher.quizzes.questions', $quiz->id)->with('success', __('Question updated successfully!'));
+    }
+
+    public function destroyQuestion(Quiz $quiz, $questionId)
+    {
+        $courseIds = $this->getTeacherCourseIds();
+        if (!in_array($quiz->course_id, $courseIds)) {
+            abort(403);
+        }
+
+        $question = QuizQuestion::where('quiz_id', $quiz->id)->findOrFail($questionId);
+        $question->options()->delete();
+        $question->delete();
+
+        return redirect()->route('teacher.quizzes.questions', $quiz->id)->with('success', __('Question deleted successfully!'));
+    }
+
     public function results(Quiz $quiz)
     {
         $courseIds = $this->getTeacherCourseIds();

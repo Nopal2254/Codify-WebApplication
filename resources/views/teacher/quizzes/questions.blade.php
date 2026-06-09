@@ -20,8 +20,31 @@
             <div class="ed-card-body d-flex flex-column gap-4" style="padding:20px;">
                 @forelse($questions as $question)
                     <div style="padding:20px;border:1.5px solid var(--card-border);border-radius:var(--radius-md);background:var(--card-bg2);position:relative;margin-bottom:16px;">
-                        <div style="position:absolute;right:20px;top:20px;display:flex;align-items:center;gap:8px;">
+                        <div style="position:absolute;right:20px;top:20px;display:flex;align-items:center;gap:12px;">
                             <span class="ed-badge ed-badge-indigo" style="font-size:11.5px;background:rgba(99, 102, 241, 0.1);color:#6366f1;">{{ $question->points }} {{ __('point') }}</span>
+                            
+                            {{-- Edit Button --}}
+                            <button type="button" class="btn btn-sm p-0 border-0 edit-question-btn" 
+                                    data-id="{{ $question->id }}"
+                                    data-question="{{ e(json_encode($question->question)) }}"
+                                    data-points="{{ $question->points }}"
+                                    data-explanation="{{ e(json_encode($question->explanation)) }}"
+                                    data-options="{{ e(json_encode($question->options)) }}"
+                                    style="background:none;border:none;outline:none;cursor:pointer;color:#6366f1;font-size:13px;"
+                                    title="{{ __('Edit question') }}">
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
+
+                            {{-- Delete Button/Form --}}
+                            <form action="{{ route('teacher.quizzes.questions.destroy', [$quiz->id, $question->id]) }}" method="POST" onsubmit="return confirm('{{ __('Are you sure you want to delete this question?') }}');" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm text-danger p-0 border-0" 
+                                        style="background:none;border:none;outline:none;cursor:pointer;font-size:13px;"
+                                        title="{{ __('Delete') }}">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
                         </div>
                         <h5 style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:16px;max-width:85%;">
                             {{ $loop->iteration }}. {{ $question->question }}
@@ -65,14 +88,15 @@
         <div class="ed-card h-100">
             <div class="ed-card-header">
                 <div>
-                    <div class="ed-card-title"><i class="fa-solid fa-plus me-2" style="color:var(--brand);"></i>{{ __('Add a new question') }}</div>
-                    <div class="ed-card-subtitle">{{ __('Write the test question and answer options') }}</div>
+                    <div class="ed-card-title" id="form-card-title"><i class="fa-solid fa-plus me-2" style="color:var(--brand);"></i>{{ __('Add a new question') }}</div>
+                    <div class="ed-card-subtitle" id="form-card-subtitle">{{ __('Write the test question and answer options') }}</div>
                 </div>
             </div>
 
             <div class="ed-card-body">
-                <form action="{{ route('teacher.quizzes.questions.store', $quiz->id) }}" method="POST">
+                <form action="{{ route('teacher.quizzes.questions.store', $quiz->id) }}" method="POST" id="question-form">
                     @csrf
+                    <input type="hidden" name="_method" id="form-method" value="POST">
 
                     <div class="mb-3">
                         <label class="form-label" style="font-weight:600;color:var(--text);">{{ __('Question text') }} <span class="text-danger">*</span></label>
@@ -104,12 +128,108 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="ed-btn w-100" style="background:var(--brand);color:#fff;border:0;">
-                        <i class="fa-solid fa-plus"></i> {{ __('Add question') }}
-                    </button>
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="ed-btn flex-grow-1" id="submit-btn" style="background:var(--brand);color:#fff;border:0;">
+                            <i class="fa-solid fa-plus" id="submit-icon"></i> <span id="submit-text">{{ __('Add question') }}</span>
+                        </button>
+                        <button type="button" class="ed-btn btn-secondary d-none" id="cancel-edit-btn" style="background:var(--card-border);color:var(--text);border:0;">
+                            {{ __('Cancel') }}
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const editButtons = document.querySelectorAll('.edit-question-btn');
+    const form = document.getElementById('question-form');
+    const formMethod = document.getElementById('form-method');
+    const formTitle = document.getElementById('form-card-title');
+    const formSubtitle = document.getElementById('form-card-subtitle');
+    const submitBtn = document.getElementById('submit-btn');
+    const submitIcon = document.getElementById('submit-icon');
+    const submitText = document.getElementById('submit-text');
+    const cancelBtn = document.getElementById('cancel-edit-btn');
+    
+    // Inputs
+    const questionTextarea = form.querySelector('textarea[name="question"]');
+    const pointsInput = form.querySelector('input[name="points"]');
+    const explanationTextarea = form.querySelector('textarea[name="explanation"]');
+    const optionInputs = form.querySelectorAll('input[name="options[]"]');
+    const correctRadios = form.querySelectorAll('input[name="correct_option"]');
+
+    const storeUrl = "{{ route('teacher.quizzes.questions.store', $quiz->id) }}";
+
+    editButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            const question = JSON.parse(this.getAttribute('data-question'));
+            const points = this.getAttribute('data-points');
+            const explanation = JSON.parse(this.getAttribute('data-explanation'));
+            const options = JSON.parse(this.getAttribute('data-options'));
+
+            // Update form action and method
+            form.setAttribute('action', `/teacher/quizzes/{{ $quiz->id }}/questions/${id}`);
+            formMethod.value = 'PUT';
+
+            // Update form headers and buttons
+            formTitle.innerHTML = `<i class="fa-solid fa-pen me-2" style="color:var(--brand);"></i>{{ __('Edit question') }}`;
+            formSubtitle.textContent = "{{ __('Update the question and answer options') }}";
+            
+            submitIcon.className = "fa-solid fa-save";
+            submitText.textContent = "{{ __('Save') }}";
+            cancelBtn.classList.remove('d-none');
+
+            // Populate text fields
+            questionTextarea.value = question;
+            pointsInput.value = points;
+            explanationTextarea.value = explanation || '';
+
+            // Clear all check states first
+            correctRadios.forEach(radio => radio.checked = false);
+
+            // Populate option fields
+            optionInputs.forEach((input, index) => {
+                const optionData = options[index];
+                if (optionData) {
+                    input.value = optionData.option_text;
+                    if (optionData.is_correct) {
+                        correctRadios[index].checked = true;
+                    }
+                } else {
+                    input.value = '';
+                }
+            });
+
+            // Scroll to form on mobile devices
+            form.scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+
+    cancelBtn.addEventListener('click', function() {
+        // Reset form action and method
+        form.setAttribute('action', storeUrl);
+        formMethod.value = 'POST';
+
+        // Reset form headers and buttons
+        formTitle.innerHTML = `<i class="fa-solid fa-plus me-2" style="color:var(--brand);"></i>{{ __('Add a new question') }}`;
+        formSubtitle.textContent = "{{ __('Write the test question and answer options') }}";
+        
+        submitIcon.className = "fa-solid fa-plus";
+        submitText.textContent = "{{ __('Add question') }}";
+        cancelBtn.classList.add('d-none');
+
+        // Reset form inputs
+        form.reset();
+        
+        // Ensure default correct option is checked
+        if (correctRadios.length > 0) {
+            correctRadios[0].checked = true;
+        }
+    });
+});
+</script>
 @endsection

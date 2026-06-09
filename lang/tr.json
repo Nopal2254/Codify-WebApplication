@@ -1115,5 +1115,10 @@
     "Oct": "Ekim",
     "You": "Sen",
     "Feb": "Şubat",
-    "Jan": "Ocak"
+    "Jan": "Ocak",
+    "Question updated successfully!": "Soru başarıyla güncellendi!",
+    "Question deleted successfully!": "Soru başarıyla silindi!",
+    "Are you sure you want to delete this question?": "Bu soruyu silmek istediğinizden emin misiniz?",
+    "Edit question": "Soruyu düzenle",
+    "Update the question and answer options": "Soruyu ve cevap seçeneklerini güncelleyin"
 }
