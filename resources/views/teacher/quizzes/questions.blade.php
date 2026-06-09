@@ -26,10 +26,10 @@
                             {{-- Edit Button --}}
                             <button type="button" class="btn btn-sm p-0 border-0 edit-question-btn" 
                                     data-id="{{ $question->id }}"
-                                    data-question="{{ e(json_encode($question->question)) }}"
+                                    data-question="{{ $question->question }}"
                                     data-points="{{ $question->points }}"
-                                    data-explanation="{{ e(json_encode($question->explanation)) }}"
-                                    data-options="{{ e(json_encode($question->options)) }}"
+                                    data-explanation="{{ $question->explanation }}"
+                                    data-options="{{ json_encode($question->options) }}"
                                     style="background:none;border:none;outline:none;cursor:pointer;color:#6366f1;font-size:13px;"
                                     title="{{ __('Edit question') }}">
                                 <i class="fa-solid fa-pen"></i>
@@ -166,9 +166,9 @@ document.addEventListener('DOMContentLoaded', function() {
     editButtons.forEach(button => {
         button.addEventListener('click', function() {
             const id = this.getAttribute('data-id');
-            const question = JSON.parse(this.getAttribute('data-question'));
+            const question = this.getAttribute('data-question');
             const points = this.getAttribute('data-points');
-            const explanation = JSON.parse(this.getAttribute('data-explanation'));
+            const explanation = this.getAttribute('data-explanation');
             const options = JSON.parse(this.getAttribute('data-options'));
 
             // Update form action and method
