@@ -340,6 +340,44 @@
             font-size: 13.5px; font-weight: 600;
         }
 
+        /* Custom dropdown override for profile and other topbar elements */
+        .dropdown-menu {
+            background: #111827 !important; /* Solid Slate 900 background */
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5) !important;
+            backdrop-filter: blur(12px);
+            z-index: 1060 !important; /* Ensure it is above page actions and all content */
+        }
+        .dropdown-menu .border-bottom {
+            border-color: rgba(255, 255, 255, 0.08) !important;
+        }
+        .dropdown-menu .dropdown-divider {
+            border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+        }
+        .dropdown-item {
+            color: #d1d5db !important; /* Light gray text */
+            transition: all 0.2s ease;
+            font-size: 13.5px;
+            font-weight: 500;
+        }
+        .dropdown-item:hover, .dropdown-item:focus {
+            background-color: rgba(255, 255, 255, 0.05) !important;
+            color: #ffffff !important;
+        }
+        .dropdown-item i {
+            transition: transform 0.2s ease;
+        }
+        .dropdown-item:hover i {
+            transform: scale(1.05);
+        }
+        .dropdown-item.text-danger {
+            color: #ef4444 !important;
+        }
+        .dropdown-item.text-danger:hover {
+            background-color: rgba(239, 68, 68, 0.08) !important;
+            color: #fca5a5 !important;
+        }
+
         /* ── BREADBAR ──────────────────────────────────────────── */
         .ed-breadbar {
             padding: 24px 24px 0;
@@ -937,7 +975,7 @@
                     <span class="ed-profile-name">{{ $__user->name ?? 'Instructor' }}</span>
                     <i class="fa-solid fa-chevron-down" style="font-size:10px; color:var(--text-muted);"></i>
                 </button>
-                <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-4 mt-2" style="min-width:200px; background: var(--card-bg2); border: 1px solid var(--card-border) !important;">
+                <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-4 mt-2" style="min-width:200px;">
                     <li class="px-3 py-2 border-bottom">
                         <div style="font-size:13px; font-weight:700; color:var(--text);">{{ $__user->name }}</div>
                         <div style="font-size:12px; color:var(--text-muted);">{{ $__user->email }}</div>
