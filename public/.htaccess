@@ -5,21 +5,14 @@
 
     RewriteEngine On
 
-    # Handle Authorization Header
+    # Authorization Header'ди өткөрүү
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
-    # Handle X-XSRF-Token Header
-    RewriteCond %{HTTP:x-xsrf-token} .
-    RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
-
-    # Redirect Trailing Slashes If Not A Folder...
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_URI} (.+)/$
-    RewriteRule ^ %1 [L,R=301]
-
-    # Send Requests To Front Controller...
+    # Эгер суралып жаткан нерсе реалдуу папка же файл болсо, аны түз ач
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
+
+    # Калган бардык суроолорду index.php'ге багытта
     RewriteRule ^ index.php [L]
 </IfModule>
