@@ -89,5 +89,18 @@ class DatabaseSeeder extends Seeder
         foreach ($announcements as $ann) {
             Announcement::create($ann);
         }
+
+        // Programming Languages
+        $languages = [
+            ['name' => 'Python', 'slug' => 'python', 'version' => '3.10', 'monaco_language' => 'python', 'file_extension' => 'py', 'is_active' => true],
+            ['name' => 'JavaScript', 'slug' => 'javascript', 'version' => 'ES6', 'monaco_language' => 'javascript', 'file_extension' => 'js', 'is_active' => true],
+            ['name' => 'PHP', 'slug' => 'php', 'version' => '8.2', 'monaco_language' => 'php', 'file_extension' => 'php', 'is_active' => true],
+            ['name' => 'C++', 'slug' => 'cpp', 'version' => 'GCC 11', 'monaco_language' => 'cpp', 'file_extension' => 'cpp', 'is_active' => true],
+            ['name' => 'Java', 'slug' => 'java', 'version' => 'JDK 17', 'monaco_language' => 'java', 'file_extension' => 'java', 'is_active' => true],
+        ];
+
+        foreach ($languages as $lang) {
+            \App\Models\ProgrammingLanguage::create($lang);
+        }
     }
 }
