@@ -22,8 +22,8 @@ class ModuleSettingsController extends Controller
             'messages' => \App\Models\Message::count(),
             'certificates' => \App\Models\Certificate::count(),
             'purchases' => \App\Models\Order::count(),
-            'playlist' => \App\Models\Playlist::count(),
-            'watch_later' => \App\Models\WatchLater::count(),
+            'playlist' => \App\Models\StudentList::where('list_type', 'playlist')->count(),
+            'watch_later' => \App\Models\StudentList::where('list_type', 'watch_later')->count(),
             'profile' => \App\Models\User::where('role', 'student')->count(),
         ];
 
