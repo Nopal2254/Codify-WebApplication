@@ -421,12 +421,17 @@
             letter-spacing: 0.5px;
         }
         .footer-links { display: flex; flex-direction: column; gap: 10px; }
-        .footer-links a {
+        .footer-links a,
+        .footer-links a:visited {
             font-size: 14px;
-            color: var(--text-secondary);
+            color: var(--text-secondary) !important;
             transition: var(--transition);
+            text-decoration: none;
         }
-        .footer-links a:hover { color: var(--brand); }
+        .footer-links a:hover {
+            color: var(--brand) !important;
+            text-decoration: none;
+        }
         .footer-bottom {
             border-top: 1px solid var(--border-color);
             padding-top: 24px;
@@ -436,14 +441,16 @@
         }
         .footer-copy { font-size: 13px; color: var(--text-muted); }
         .footer-social { display: flex; gap: 16px; }
-        .footer-social a { color: var(--text-secondary); font-size: 18px; transition: var(--transition); }
-        .footer-social a:hover { color: var(--brand); }
+        .footer-social a,
+        .footer-social a:visited { color: var(--text-secondary) !important; font-size: 18px; transition: var(--transition); text-decoration: none; }
+        .footer-social a:hover { color: var(--brand) !important; text-decoration: none; }
         .footer-social-round {
             display: flex;
             gap: 12px;
             margin-top: 20px;
         }
-        .footer-social-round a {
+        .footer-social-round a,
+        .footer-social-round a:visited {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -452,15 +459,15 @@
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            color: var(--text-secondary, #64748b);
+            color: var(--text-secondary, #64748b) !important;
             font-size: 16px;
             transition: all 0.25s ease;
             text-decoration: none;
         }
         .footer-social-round a:hover {
-            background: var(--brand, #6366f1);
-            color: #fff;
-            border-color: var(--brand, #6366f1);
+            background: var(--brand, #6366f1) !important;
+            color: #fff !important;
+            border-color: var(--brand, #6366f1) !important;
             transform: translateY(-2px);
             box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
         }
@@ -916,18 +923,24 @@
                             <a href="/contact">Destek & SSS Sayfası</a>
                         @endif
 
-                        <div style="margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 12px; display: flex; flex-direction: column; gap: 8px;">
-                            @if($supportPhone = \App\Models\SiteSetting::get('support_phone'))
-                                <a href="tel:{{ $supportPhone }}" style="font-size: 13px; display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; transition: color 0.2s;" class="hover:text-white">
-                                    <i class="fa-solid fa-phone" style="color: var(--brand, #6366f1); font-size: 12px;"></i> {{ $supportPhone }}
-                                </a>
-                            @endif
-                            @if($supportEmail = \App\Models\SiteSetting::get('support_email'))
-                                <a href="mailto:{{ $supportEmail }}" style="font-size: 13px; display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; transition: color 0.2s;" class="hover:text-white">
-                                    <i class="fa-solid fa-envelope" style="color: var(--brand, #6366f1); font-size: 12px;"></i> {{ $supportEmail }}
-                                </a>
-                            @endif
-                        </div>
+                        @php
+                            $supportPhone = \App\Models\SiteSetting::get('support_phone');
+                            $supportEmail = \App\Models\SiteSetting::get('support_email');
+                        @endphp
+                        @if($supportPhone || $supportEmail)
+                            <div style="margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 12px; display: flex; flex-direction: column; gap: 8px;">
+                                @if($supportPhone)
+                                    <a href="tel:{{ $supportPhone }}" style="font-size: 13px; display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; transition: color 0.2s;" class="hover:text-white">
+                                        <i class="fa-solid fa-phone" style="color: var(--brand, #6366f1); font-size: 12px;"></i> {{ $supportPhone }}
+                                    </a>
+                                @endif
+                                @if($supportEmail)
+                                    <a href="mailto:{{ $supportEmail }}" style="font-size: 13px; display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; transition: color 0.2s;" class="hover:text-white">
+                                        <i class="fa-solid fa-envelope" style="color: var(--brand, #6366f1); font-size: 12px;"></i> {{ $supportEmail }}
+                                    </a>
+                                @endif
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
