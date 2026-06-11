@@ -34,3 +34,6 @@ RUN composer install --no-dev --optimize-autoloader
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
 EXPOSE 80
+
+# This runs your migrations first, then starts the Apache web server
+CMD php artisan migrate --force && apache2-foreground
