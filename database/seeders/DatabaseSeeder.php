@@ -14,31 +14,37 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Admin
-        User::create([
-            'name' => 'Admin',
-            'email' => 'admin@edu.com',
-            'password' => bcrypt('admin123'),
-            'role' => 'admin',
-            'email_verified_at' => now(),
-        ]);
-
+        if (!User::where('email', 'admin@edu.com')->exists()) {
+            User::create([
+                'name' => 'Admin',
+                'email' => 'admin@edu.com',
+                'password' => bcrypt('admin123'),
+                'role' => 'admin',
+                'email_verified_at' => now(),
+            ]);
+        }
+        
         // Teacher
-        User::create([
-            'name' => 'Azamat Teacher',
-            'email' => 'teacher@edu.com',
-            'password' => bcrypt('admin123'),
-            'role' => 'teacher',
-            'email_verified_at' => now(),
-        ]);
-
+        if (!User::where('email', 'teacher@edu.com')->exists()) {
+            User::create([
+                'name' => 'Azamat Teacher',
+                'email' => 'teacher@edu.com',
+                'password' => bcrypt('admin123'),
+                'role' => 'teacher',
+                'email_verified_at' => now(),
+            ]);
+        }
+        
         // Student
-        User::create([
-            'name' => 'Aigul Student',
-            'email' => 'student@edu.com',
-            'password' => bcrypt('admin123'),
-            'role' => 'student',
-            'email_verified_at' => now(),
-        ]);
+        if (!User::where('email', 'student@edu.com')->exists()) {
+            User::create([
+                'name' => 'Aigul Student',
+                'email' => 'student@edu.com',
+                'password' => bcrypt('admin123'),
+                'role' => 'student',
+                'email_verified_at' => now(),
+            ]);
+        }
 
         // Categories
         $categories = [

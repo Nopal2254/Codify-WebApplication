@@ -37,3 +37,5 @@ EXPOSE 80
 
 # This runs your migrations first, then starts the Apache web server
 CMD php artisan migrate --force && apache2-foreground
+
+CMD php artisan migrate --force && php artisan db:seed --force && apache2-foreground
