@@ -14,37 +14,37 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Admin
-        if (!User::where('email', 'admin@edu.com')->exists()) {
-            User::create([
+        User::firstOrCreate(
+            ['email' => 'admin@edu.com'],
+            [
                 'name' => 'Admin',
-                'email' => 'admin@edu.com',
                 'password' => bcrypt('admin123'),
                 'role' => 'admin',
                 'email_verified_at' => now(),
-            ]);
-        }
-        
+            ]
+        );
+
         // Teacher
-        if (!User::where('email', 'teacher@edu.com')->exists()) {
-            User::create([
+        $teacher = User::firstOrCreate(
+            ['email' => 'teacher@edu.com'],
+            [
                 'name' => 'Azamat Teacher',
-                'email' => 'teacher@edu.com',
                 'password' => bcrypt('admin123'),
                 'role' => 'teacher',
                 'email_verified_at' => now(),
-            ]);
-        }
-        
+            ]
+        );
+
         // Student
-        if (!User::where('email', 'student@edu.com')->exists()) {
-            User::create([
+        User::firstOrCreate(
+            ['email' => 'student@edu.com'],
+            [
                 'name' => 'Aigul Student',
-                'email' => 'student@edu.com',
                 'password' => bcrypt('admin123'),
                 'role' => 'student',
                 'email_verified_at' => now(),
-            ]);
-        }
+            ]
+        );
 
         // Categories
         $categories = [
@@ -56,33 +56,50 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($categories as $cat) {
-            Category::create($cat);
+            Category::firstOrCreate(
+                ['slug' => $cat['slug']],
+                collect($cat)->except('slug')->toArray()
+            );
         }
 
-        // Courses
+        // Courses — use actual DB column names (instructor_id, status) instead of virtual attributes
+        $webDev = Category::where('slug', 'web-development')->first();
+        $dataScience = Category::where('slug', 'data-science')->first();
+        $design = Category::where('slug', 'design')->first();
+        $database = Category::where('slug', 'database')->first();
+
         $courses = [
-            ['title' => 'Laravel 11 Full Course', 'slug' => 'laravel-11-full-course', 'category_id' => 1, 'user_id' => 2, 'price' => 49.99, 'level' => 'beginner', 'description' => 'Learn web development with Laravel framework', 'is_active' => true],
-            ['title' => 'Python Data Science', 'slug' => 'python-data-science', 'category_id' => 2, 'user_id' => 2, 'price' => 59.99, 'level' => 'intermediate', 'description' => 'Data analysis using Python', 'is_active' => true],
-            ['title' => 'React.js for Beginners', 'slug' => 'reactjs-beginners', 'category_id' => 1, 'user_id' => 2, 'price' => 39.99, 'level' => 'beginner', 'description' => 'Modern web applications using React.js', 'is_active' => true],
-            ['title' => 'UI/UX Design Figma', 'slug' => 'ui-ux-design-figma', 'category_id' => 4, 'user_id' => 2, 'price' => 34.99, 'level' => 'beginner', 'description' => 'Professional design using Figma', 'is_active' => true],
-            ['title' => 'PostgreSQL Databases', 'slug' => 'postgresql-databases', 'category_id' => 5, 'user_id' => 2, 'price' => 29.99, 'level' => 'beginner', 'description' => 'Database management using PostgreSQL', 'is_active' => true],
+            ['title' => 'Laravel 11 Full Course', 'slug' => 'laravel-11-full-course', 'category_id' => $webDev->id, 'instructor_id' => $teacher->id, 'price' => 49.99, 'level' => 'beginner', 'description' => 'Learn web development with Laravel framework', 'status' => 'published'],
+            ['title' => 'Python Data Science', 'slug' => 'python-data-science', 'category_id' => $dataScience->id, 'instructor_id' => $teacher->id, 'price' => 59.99, 'level' => 'intermediate', 'description' => 'Data analysis using Python', 'status' => 'published'],
+            ['title' => 'React.js for Beginners', 'slug' => 'reactjs-beginners', 'category_id' => $webDev->id, 'instructor_id' => $teacher->id, 'price' => 39.99, 'level' => 'beginner', 'description' => 'Modern web applications using React.js', 'status' => 'published'],
+            ['title' => 'UI/UX Design Figma', 'slug' => 'ui-ux-design-figma', 'category_id' => $design->id, 'instructor_id' => $teacher->id, 'price' => 34.99, 'level' => 'beginner', 'description' => 'Professional design using Figma', 'status' => 'published'],
+            ['title' => 'PostgreSQL Databases', 'slug' => 'postgresql-databases', 'category_id' => $database->id, 'instructor_id' => $teacher->id, 'price' => 29.99, 'level' => 'beginner', 'description' => 'Database management using PostgreSQL', 'status' => 'published'],
         ];
 
         foreach ($courses as $course) {
-            Course::create($course);
+            Course::firstOrCreate(
+                ['slug' => $course['slug']],
+                collect($course)->except('slug')->toArray()
+            );
         }
 
-        // Lessons
+        // Lessons — use actual DB column names (content_text, sort_order) instead of virtual attributes
+        $laravelCourse = Course::where('slug', 'laravel-11-full-course')->first();
+        $pythonCourse = Course::where('slug', 'python-data-science')->first();
+
         $lessons = [
-            ['course_id' => 1, 'title' => 'Laravel Installation', 'content' => 'Methods of installing Laravel', 'order' => 1, 'is_active' => true],
-            ['course_id' => 1, 'title' => 'Routes and Controllers', 'content' => 'Working with routes and controllers', 'order' => 2, 'is_active' => true],
-            ['course_id' => 1, 'title' => 'Blade Templates', 'content' => 'Using Blade template engine', 'order' => 3, 'is_active' => true],
-            ['course_id' => 2, 'title' => 'Python Basics', 'content' => 'Python programming language', 'order' => 1, 'is_active' => true],
-            ['course_id' => 2, 'title' => 'Pandas Library', 'content' => 'Data processing using Pandas', 'order' => 2, 'is_active' => true],
+            ['course_id' => $laravelCourse->id, 'title' => 'Laravel Installation', 'content_text' => 'Methods of installing Laravel', 'sort_order' => 1],
+            ['course_id' => $laravelCourse->id, 'title' => 'Routes and Controllers', 'content_text' => 'Working with routes and controllers', 'sort_order' => 2],
+            ['course_id' => $laravelCourse->id, 'title' => 'Blade Templates', 'content_text' => 'Using Blade template engine', 'sort_order' => 3],
+            ['course_id' => $pythonCourse->id, 'title' => 'Python Basics', 'content_text' => 'Python programming language', 'sort_order' => 1],
+            ['course_id' => $pythonCourse->id, 'title' => 'Pandas Library', 'content_text' => 'Data processing using Pandas', 'sort_order' => 2],
         ];
 
         foreach ($lessons as $lesson) {
-            Lesson::create($lesson);
+            Lesson::firstOrCreate(
+                ['course_id' => $lesson['course_id'], 'title' => $lesson['title']],
+                collect($lesson)->except(['course_id', 'title'])->toArray()
+            );
         }
 
         // Announcements
@@ -93,7 +110,10 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($announcements as $ann) {
-            Announcement::create($ann);
+            Announcement::firstOrCreate(
+                ['title' => $ann['title']],
+                collect($ann)->except('title')->toArray()
+            );
         }
 
         // Programming Languages
@@ -106,7 +126,10 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($languages as $lang) {
-            \App\Models\ProgrammingLanguage::create($lang);
+            \App\Models\ProgrammingLanguage::firstOrCreate(
+                ['slug' => $lang['slug']],
+                collect($lang)->except('slug')->toArray()
+            );
         }
     }
 }
