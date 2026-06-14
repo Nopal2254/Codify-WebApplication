@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'EduPlatform — Sizi Gerçekten İleriye Taşıyacak Beceriler')
+@section('title', 'Codify — Sizi Gerçekten İleriye Taşıyacak Beceriler')
 
 @section('extra-css')
 <style>
@@ -603,7 +603,7 @@ body {
                         <span style="width:18px;height:18px;border-radius:50%;background:rgba(99, 102, 241,0.3);display:inline-flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#818cf8;flex-shrink:0;">
                             {{ strtoupper(substr($course->user->name ?? 'E', 0, 1)) }}
                         </span>
-                        {{ $course->user->name ?? 'EduPlatform' }}
+                        {{ $course->user->name ?? 'Codify' }}
                     </div>
                     <div class="g-card-title">{{ $course->title }}</div>
                     <div class="g-card-type">{{ $course->category->name ?? 'Kurs' }}</div>

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('messages.learning.title') . ' | EduPlatform')
+@section('title', __('messages.learning.title') . ' | Codify')
 
 @section('extra-css')
 <style>

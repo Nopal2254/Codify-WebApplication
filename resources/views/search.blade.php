@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Browse Courses — EduPlatform')
+@section('title', 'Browse Courses — Codify')
 @section('meta-description', 'Discover thousands of courses across design, development, marketing, and more.')
 
 @section('extra-css')

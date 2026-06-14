@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('Messages | EduPlatform'))
+@section('title', __('Messages | Codify'))
 @section('page-title', __('Messages'))
 
 @section('content')
@@ -14,7 +14,7 @@
             <div style="width: 40px; height: 40px; background: var(--brand); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">A</div>
             <div>
                 <div style="font-size: 14px; font-weight: 600;">{{ __('Support') }}</div>
-                <div style="font-size: 13px; color: var(--text-muted);">{{ __('Welcome to') }} EduPlatform!...</div>
+                <div style="font-size: 13px; color: var(--text-muted);">{{ __('Welcome to') }} Codify!...</div>
             </div>
             <div style="margin-left: auto; width: 8px; height: 8px; background: var(--brand); border-radius: 50%;"></div>
         </div>

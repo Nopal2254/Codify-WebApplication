@@ -176,7 +176,7 @@
                     <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
                 </svg>
             </div>
-            <span class="logo-text">EduPlatform</span>
+            <span class="logo-text">Codify</span>
         </div>
     </div>
 
@@ -219,7 +219,7 @@
 
     <!-- Footer -->
     <div class="email-footer">
-        <p>&copy; {{ date('Y') }} EduPlatform. {{ __('messages.auth.reset.email_copyright') }}</p>
+        <p>&copy; {{ date('Y') }} Codify. {{ __('messages.auth.reset.email_copyright') }}</p>
         <p style="margin-top:6px;">
             {{ __('messages.auth.reset.email_automated') }}
         </p>

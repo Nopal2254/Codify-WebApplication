@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Introduction to Data Analytics | EduPlatform')
+@section('title', 'Introduction to Data Analytics | Codify')
 
 @section('extra-css')
 <style>

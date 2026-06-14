@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Giriş Yap | EduPlatform')
+@section('title', 'Giriş Yap | Codify')
 
 @section('extra-css')
 <style>
@@ -110,7 +110,7 @@
 <div class="auth-page">
     <div class="auth-card">
         <h1>Hesabınıza Giriş Yapın</h1>
-        <p class="subtitle">EduPlatform'da yeni misiniz? <a href="{{ url('/register') }}">Ücretsiz kayıt olun</a></p>
+        <p class="subtitle">Codify'da yeni misiniz? <a href="{{ url('/register') }}">Ücretsiz kayıt olun</a></p>
 
         <form action="{{ route('login') }}" method="POST">@csrf
             <div class="form-group">

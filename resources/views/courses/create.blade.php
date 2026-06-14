@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Create New Course | EduPlatform')
+@section('title', 'Create New Course | Codify')
 @section('page-title', 'Create Course')
 
 @section('extra-css')

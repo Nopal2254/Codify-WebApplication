@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('Contacts | EduPlatform'))
+@section('title', __('Contacts | Codify'))
 @section('page-title', __('Contacts'))
 
 @section('extra-css')

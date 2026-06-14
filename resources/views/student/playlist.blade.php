@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('My Playlist') . ' | EduPlatform')
+@section('title', __('My Playlist') . ' | Codify')
 
 @section('content')
 <div class="container" style="padding-top: 100px; padding-bottom: 60px;">

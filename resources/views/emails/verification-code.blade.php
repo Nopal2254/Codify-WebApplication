@@ -61,7 +61,7 @@
         <div class="code">{{ $code }}</div>
         <p>{{ __('messages.auth.register.email_verify_ignore') }}</p>
         <div class="footer">
-            &copy; {{ date('Y') }} EduPlatform. {{ __('messages.auth.register.email_verify_copyright') }}
+            &copy; {{ date('Y') }} Codify. {{ __('messages.auth.register.email_verify_copyright') }}
         </div>
     </div>
 </body>

@@ -244,7 +244,7 @@
                 </div>
             </div>
 
-            <div class="cert-number">{{ __('Certificate ID') }}: {{ $certificate->code }} • eduplatform.com</div>
+            <div class="cert-number">{{ __('Certificate ID') }}: {{ $certificate->code }} • codify.com</div>
         </div>
     </div>
 </div>

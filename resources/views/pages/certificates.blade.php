@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('My certificates | EduPlatform'))
+@section('title', __('My certificates | Codify'))
 @section('page-title', __('My certificates'))
 
 @section('extra-css')
@@ -158,7 +158,7 @@
 
                 <div class="cert-footer">
                     <span>ID: {{ $cert->code }}</span>
-                    <span>EduPlatform</span>
+                    <span>Codify</span>
                 </div>
             </div>
 

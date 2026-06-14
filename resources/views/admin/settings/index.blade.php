@@ -54,8 +54,8 @@
                                         <div class="mb-3">
                                             <label class="form-label fw-bold text-dark">{{ __('Site Name') }}</label>
                                             <input type="text" name="site_name" class="form-control rounded-3 py-2.5 @error('site_name') is-invalid @enderror" 
-                                                   value="{{ old('site_name', $settings['site_name'] ?? 'EduPlatform') }}" 
-                                                   placeholder="e.g. EduPlatform">
+                                                   value="{{ old('site_name', $settings['site_name'] ?? 'Codify') }}" 
+                                                   placeholder="e.g. Codify">
                                             @error('site_name')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                         </div>
 

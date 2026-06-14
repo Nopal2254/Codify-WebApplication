@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('messages.wishlist.title') . ' | EduPlatform')
+@section('title', __('messages.wishlist.title') . ' | Codify')
 
 @section('content')
 <div class="container" style="padding-top: 100px; padding-bottom: 60px;">

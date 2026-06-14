@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', \App\Models\SiteSetting::get('site_name', 'EduPlatform') . ' - Learn Without Limits')</title>
+    <title>@yield('title', \App\Models\SiteSetting::get('site_name', 'Codify') . ' - Learn Without Limits')</title>
     <meta name="description" content="{{ \App\Models\SiteSetting::get('site_description', 'Build skills with courses, certificates, and degrees online from world-class universities and companies.') }}">
     @if($faviconPath = \App\Models\SiteSetting::get('site_favicon'))
         <link rel="icon" type="image/x-icon" href="{{ asset('storage/' . $faviconPath) }}">
@@ -870,8 +870,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="footer-grid">
                 <div>
-                    <div class="footer-brand">{{ \App\Models\SiteSetting::get('site_name', 'EduPlatform') }}</div>
-                    <p class="footer-desc">{{ \App\Models\SiteSetting::get('site_description', 'Transform your life through education. Learn from the best instructors and institutions around the world, at your own pace.') }}</p>
+                    <div class="footer-brand">{{ \App\Models\SiteSetting::get('site_name', 'Codify', 'Transform your life through education. Learn from the best instructors and institutions around the world, at your own pace.') }}</p>
                     
                     @php
                         $supportPhone = \App\Models\SiteSetting::get('support_phone');
@@ -923,7 +922,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <span class="footer-copy">© 2026 EduPlatform. Tüm hakları saklıdır. Gururla sunar.</span>
+                <span class="footer-copy">© 2026 Codify. Tüm hakları saklıdır. Gururla sunar.</span>
                 <div class="footer-social">
                     @if($tg = \App\Models\SiteSetting::get('social_telegram'))
                         <a href="{{ $tg }}" target="_blank"><i class="fab fa-telegram"></i></a>

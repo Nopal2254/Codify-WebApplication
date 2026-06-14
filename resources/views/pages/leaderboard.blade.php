@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Global Leaderboard | EduPlatform')
+@section('title', 'Global Leaderboard | Codify')
 
 @php
     // Fetch all student users and calculate their XP based on completed lessons

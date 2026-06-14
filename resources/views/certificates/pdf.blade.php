@@ -168,7 +168,7 @@
                     </tr>
                 </table>
 
-                <div class="footer-text">{{ __('Certificate ID') }}: {{ $certificate->code }} • eduplatform.com</div>
+                <div class="footer-text">{{ __('Certificate ID') }}: {{ $certificate->code }} • codify.com</div>
             </div>
         </div>
     </div>

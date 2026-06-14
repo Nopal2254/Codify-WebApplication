@@ -1,7 +1,7 @@
-# EduPlatform — Онлайн Билим Берүү Платформасы
+# Codify — Онлайн Билим Берүү Платформасы
 
 ## 📋 Проект жөнүндө
-EduPlatform — Coursera/Udemy стилиндеги онлайн курс платформасы.
+Codify — Coursera/Udemy стилиндеги онлайн курс платформасы.
 Laravel 11 + PostgreSQL + Bootstrap 5 менен жасалган.
 
 ## 🛠 Технологиялар
