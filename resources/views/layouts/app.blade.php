@@ -742,14 +742,7 @@
         <!-- Left: Logo -->
         <div class="flex items-center">
             <a href="{{ url('/') }}" class="flex items-center gap-2.5 no-underline">
-                @if($logoPath = \App\Models\SiteSetting::get('site_logo'))
-                    <img src="{{ asset('storage/' . $logoPath) }}" alt="Logo" style="height:34px; max-width:120px; object-fit:contain;">
-                @else
-                    <div style="background:linear-gradient(135deg,var(--brand),var(--brand-dark));width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(99, 102, 241,0.4);">
-                        <i class="fa-solid fa-graduation-cap" style="color:#fff;font-size:15px;"></i>
-                    </div>
-                    <span class="text-white font-bold tracking-tight" style="font-size:16px;">{{ \App\Models\SiteSetting::get('site_name', 'EduPlatform') }}</span>
-                @endif
+                <img src="{{ asset('new Codify.png') }}" alt="Logo" style="height:34px; max-width:120px; object-fit:contain;">
             </a>
         </div>
 

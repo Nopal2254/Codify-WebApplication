@@ -791,7 +791,7 @@
 <aside class="ed-sidebar" id="edSidebar">
     <a href="{{ route('teacher.dashboard') }}" class="ed-sidebar-logo">
         <div style="background: none; box-shadow: none; height: 38px;">
-            <img src="{{ asset('logo_dash.png') }}" alt="Logo" style="height: 100%; object-fit: contain;">
+            <img src="{{ asset('new Codify.png') }}" alt="Logo" style="height: 100%; object-fit: contain;">
         </div>
     </a>
 

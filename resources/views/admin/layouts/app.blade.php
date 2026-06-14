@@ -397,7 +397,7 @@
         <div class="sidebar-header">
             <div class="d-flex align-items-center">
                 <div style="background: none; box-shadow: none; height: 38px;">
-                    <img src="{{ asset('logo_dash.png') }}" alt="Logo" style="height: 100%; object-fit: contain;">
+                    <img src="{{ asset('new Codify.png') }}" alt="Logo" style="height: 100%; object-fit: contain;">
                 </div>
             </div>
         </div>
